@@ -14,13 +14,7 @@ task :get_stock, [:ticker, :days_back] => :environment do |t, args|
   data = result['dataset']['data']
 
   days = data.map do |day|
-    Hash[day.map.with_index do |datum, index|
-      [keys[index], datum]
-    end]
-  end
-
-  # binding.pry
-  days.each do |day|
+    day = Hash[keys.zip(day)]
     kazoo.days.create!({date: day['Date'], close: day['Close']})
   end
 end
