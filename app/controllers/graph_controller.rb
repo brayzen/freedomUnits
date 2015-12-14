@@ -1,3 +1,5 @@
+require 'date'
+
 class GraphController < ApplicationController
 
   def index
@@ -33,13 +35,19 @@ class GraphController < ApplicationController
   def compile_graph_data
     @graph_data = {}
     symbol = params[:symbol]
-    data = HTTParty.get("https://www.quandl.com/api/v3/datasets/WIKI/" + symbol + "/data.json?start_date=" + strt_date)
-    return 'Incorrect symbol' if data["quandl_error"] || !data
-    @graph_data[:sma50] = sma_generator(data)
-    @graph_data[:price] = find_last_50_prices(data)
-    respond_to do |format|
-      format.js { render :json => @graph_data }
-      format.json { render :json => @graph_data }
+    puts "HTTParty.get('https://www.quandl.com/api/v3/datasets/WIKI/#{symbol}/data.json?start_date=#{strt_date}')"
+    data = HTTParty.get("https://www.quandl.com/api/v3/datasets/WIKI/#{symbol}/data.json?start_date=#{strt_date}")
+    logger.info data
+    if data["quandl_error"] || !data
+      flash[:error] = "API call failed"
+    else
+      @graph_data[:sma50] = sma_generator(data)
+      @graph_data[:price] = find_last_50_prices(data)
+      respond_to do |format|
+        format.html { @graph_data }
+        format.js { render :json => @graph_data }
+        format.json { render :json => @graph_data }
+      end
     end
   end
 end

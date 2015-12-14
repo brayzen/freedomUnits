@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
+  get '/fetch' => 'welcome#fetch'
   get '/graph' => 'graph#index'
   get '/compile_graph_data' => 'graph#compile_graph_data'
   # get '/{"symbol":":symbol"}' => 'graph#compile_graph_data'

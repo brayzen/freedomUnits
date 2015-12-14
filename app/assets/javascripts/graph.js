@@ -1,11 +1,8 @@
 function graphIt(symbol){
-  var curl = "/compile_graph_data?symbol=" + symbol;
-  console.log(curl);
-
   $.ajax({
-        url: curl,
+        url: "/compile_graph_data",
         type: "GET",
-        // data: {"symbol": "AAPL"},
+        data: {"symbol": symbol},
         dataType: 'json',
         success: function(data, status, xhr){
           console.log('SUCCESS');
