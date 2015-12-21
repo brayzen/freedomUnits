@@ -1,11 +1,10 @@
 require 'date'
 require 'pry'
 require 'rake'
-load File.join(Rails.root, 'lib', 'tasks')
 
 class WelcomeController < ApplicationController
   def index
-    @kazoos = Kazoos.all
+    # @kazoos = Kazoos.all
   end
 
   def filter

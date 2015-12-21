@@ -1,6 +1,7 @@
 require 'pry'
 # desc "gathering info about a stock"
-task :get_stock, [:ticker, :days_back] => :environment do |t, args|
+task :get_holding, [:ticker, :days_back] do |t, args|
+  rake db:drop
   args[:days_back] ||= 100
 
   kazoo = Kazoo.find_by ticker_name: args[:ticker]
@@ -18,3 +19,8 @@ task :get_stock, [:ticker, :days_back] => :environment do |t, args|
     kazoo.days.create!({date: day['Date'], close: day['Close']})
   end
 end
+
+
+search_list = ['aapl', 'msft', 'goog', 'amzn', 'wmt']
+
+search_list.each { |holding| :get_holding[holding.upcase!] }
