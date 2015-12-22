@@ -18,9 +18,13 @@ ActiveRecord::Schema.define(version: 20151213235137) do
 
   create_table "commodities", force: :cascade do |t|
     t.string   "name"
-    t.string   "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.float    "close"
+    t.float    "sma50"
+    t.float    "sell_point"
+    t.float    "invest_point"
+    t.boolean  "sma_cleared"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "days", force: :cascade do |t|
@@ -35,6 +39,7 @@ ActiveRecord::Schema.define(version: 20151213235137) do
 
   create_table "kazoos", force: :cascade do |t|
     t.string   "ticker_name"
+    t.string   "data"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
