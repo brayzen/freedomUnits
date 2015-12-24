@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: freedomUnits_production
-  username: freedomUnits
-  password: <%= ENV['FREEDOMUNITS_DATABASE_PASSWORD'] %>
+  database: freedomUnits_development
+  # database: freedomUnits_production
+  # username: freedomUnits
+  # password: <%= ENV['FREEDOMUNITS_DATABASE_PASSWORD'] %>

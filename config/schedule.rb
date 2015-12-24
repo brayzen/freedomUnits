@@ -19,13 +19,13 @@
 
 # Learn more: http://github.com/javan/whenever
 # search_list.each { |holding| get_stock(holding) }
-job_type :get_holding, '~/brayzen/rubyonrails/freedomUnits rake get_holding[":task"]'
+# job_type :get_holding, '~/brayzen/rubyonrails/freedomUnits rake get_holding[":task"]'
 
-every 1.day do
-  search_list = ['amzn', 'aapl', 'msft', 'goog', 'omx']
+every :day, :at => '2:05am' do
+  search_list = ['amzn', 'aapl', 'msft', 'goog', 'wfc']
   search_list.each do |holding|
     holding.upcase!.to_s
-    puts "its been 5 minutes and the holding is: #{holding}"
-    get_holding holding
+    puts "its been 2 minutes and the holding is: #{holding}"
+    rake "get_holding[#{holding}]"
   end
 end
