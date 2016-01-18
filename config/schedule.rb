@@ -19,13 +19,28 @@
 
 # Learn more: http://github.com/javan/whenever
 # search_list.each { |holding| get_stock(holding) }
-# job_type :get_holding, '~/brayzen/rubyonrails/freedomUnits rake get_holding[":task"]'
+require "active_record"
+require 'date'
 
-every :day, :at => '2:05am' do
-  search_list = ['amzn', 'aapl', 'msft', 'goog', 'wfc']
-  search_list.each do |holding|
-    holding.upcase!.to_s
-    puts "its been 2 minutes and the holding is: #{holding}"
-    rake "get_holding[#{holding}]"
+
+every :hour, :at => '12:37pm' do
+  if 1 < Date.today.wday && Date.today.wday < 7
+    # ActiveRecord::Base.connection.execute('DELETE * FROM days')
+    search_list = ['amzn', 'aapl', 'msft', 'goog', 'wfc', 'EXPE']
+    search_list.each do |holding|
+      holding.upcase!.to_s
+      rake "get_holding[#{holding}]"
+    end
   end
 end
+
+# every :day, :at => '12:37pm' do
+#   if 1 < Date.today.wday && Date.today.wday < 7
+#     # ActiveRecord::Base.connection.execute('DELETE * FROM days')
+#     search_list = ['amzn', 'aapl', 'msft', 'goog', 'wfc', 'EXPE']
+#     search_list.each do |holding|
+#       holding.upcase!.to_s
+#       rake "get_holding[#{holding}]"
+#     end
+#   end
+# end

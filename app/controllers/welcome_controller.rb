@@ -23,7 +23,7 @@ class WelcomeController < ApplicationController
   end
 
   def fetch
-    @response = Daily_fetch.new
+    @response = {symbol: "Daily_fetch.new", next_symbol: 'the next one'}
     render json: @response
   end
 end
