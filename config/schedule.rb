@@ -23,15 +23,16 @@ require "active_record"
 require 'date'
 
 
-every :hour, :at => '12:37pm' do
-  if 1 < Date.today.wday && Date.today.wday < 7
+every :day, :at => '5:02pm' do
+  # if 1 < Date.today.wday && Date.today.wday < 7
     # ActiveRecord::Base.connection.execute('DELETE * FROM days')
-    search_list = ['amzn', 'aapl', 'msft', 'goog', 'wfc', 'EXPE']
+    # search_list = ['amzn', 'aapl', 'msft', 'goog', 'wfc', 'EXPE']
+    search_list = ['hd', 'c', 'unh', 'hpq', 'ibm', 'bac']
     search_list.each do |holding|
       holding.upcase!.to_s
       rake "get_holding[#{holding}]"
     end
-  end
+  # end
 end
 
 # every :day, :at => '12:37pm' do
