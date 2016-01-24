@@ -1,14 +1,10 @@
 function graphIt(symbol){
   $.ajax({
-        url: "/compile_graph_data",
+        url: "/kazoo",
         type: "GET",
         data: {"symbol": symbol},
         dataType: 'json',
         success: function(data, status, xhr){
-          console.log('SUCCESS');
-          console.log(data);
-          console.log(status);
-          console.log(xhr);
           dataPlots = data;
           dataForGraph =  [{
                             data: dataPlots["sma50"],
@@ -29,7 +25,7 @@ function graphIt(symbol){
           options = {
                      legend: {position:"nw"}
                      };
-          chart = $.plot($("#placeholder"), dataForGraph, options);
+          chart = $.plot($("#kazoo_graph"), dataForGraph, options);
         },
         error: function(data, status, xhr){
           console.log(data);
@@ -39,10 +35,13 @@ function graphIt(symbol){
   });
 };
 
-$(function(){
-  console.log('HEWRE');
-  $('#sbutton').on('click', function(){
-    var symbol = $('#text').val().toUpperCase();
+$(document).ready( function(){
+  console.log('document ready');
+  $('.get_kazoo').on('click', function(){
+    console.log('kazoo controller');
+    var symbol = $('.text').val().toUpperCase();
+    if(symbol.length < 0)
+      return false;
     graphIt(symbol);
   });
-})
+});
