@@ -35,7 +35,6 @@ class GraphController < ApplicationController
   def compile_graph_data
     @graph_data = {}
     symbol = params[:symbol]
-    puts "HTTParty.get('https://www.quandl.com/api/v3/datasets/WIKI/#{symbol}/data.json?start_date=#{strt_date}')"
     data = HTTParty.get("https://www.quandl.com/api/v3/datasets/WIKI/#{symbol}/data.json?start_date=#{strt_date}&api_key=#{Rails.application.secrets.quandl_key}")
     if data["quandl_error"] || !data
       flash[:error] = "API call failed"

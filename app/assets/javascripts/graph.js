@@ -40,7 +40,7 @@ function graphIt(symbol){
 };
 
 $(function(){
-  console.log('HEWRE');
+  console.log('HERE');
   $('#sbutton').on('click', function(){
     var symbol = $('#text').val().toUpperCase();
     graphIt(symbol);
