@@ -8,9 +8,9 @@ class Kazoo < ActiveRecord::Base
   end
 
   def smas
-    days = days_between(DateTime.now - 50.days, DateTime.now)
-    days.each do |day|
+    recent_days(50).each do |day|
       day.sma = day_50_closes(days_between(day.date - 50.days, day.date))
+      day.save!
     end
   end
 
@@ -27,6 +27,10 @@ class Kazoo < ActiveRecord::Base
       return false if day.sma > day.close
     end
     true
+  end
+
+  def recent_days(count)
+    days_between(DateTime.now - count, DateTime.now)
   end
 
 end

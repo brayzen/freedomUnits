@@ -22,23 +22,9 @@ class KazooController < ApplicationController
     kazoo = Kazoo.create
     kazoo.create_days days
 
-    render json: kaz
+    render_days = kazoo.recent_days(50).sort_by{|day| day.date}.reverse
+    smas = render_days.each_with_index.map{|day, index| [index, day.sma]}
+    closes = render_days.each_with_index.map{|day, index| [index, day.close]}
+    render json: {days: {smas: smas, closes: closes}}
   end
-
-  # def compile_graph_data
-  #   @graph_data = {}
-  #   symbol = params[:symbol]
-  #   data = HTTParty.get("https://www.quandl.com/api/v3/datasets/WIKI/#{symbol}/data.json?start_date=#{strt_date}&api_key=#{Rails.application.secrets.quandl_key}")
-  #   if data["quandl_error"] || !data
-  #     flash[:error] = "API call failed"
-  #   else
-  #     @graph_data[:sma50] = sma_generator(data)
-  #     @graph_data[:price] = find_last_50_prices(data)
-  #     respond_to do |format|
-  #       format.html { @graph_data }
-  #       format.js { render :json => @graph_data }
-  #       format.json { render :json => @graph_data }
-  #     end
-  #   end
-  # end
 end
