@@ -3,11 +3,7 @@ require 'pry'
 task :get_holding, [:ticker, :days_back] => :environment do |t, args|
   days_back = args[:days_back] || 150
   ticker = args[:ticker].upcase! || args[:ticker]
-
   end_date = (Date.today - days_back)
-
-  print "Getting #{ticker} from Quandl"
-  puts "https://www.quandl.com/api/v3/datasets/WIKI/#{ticker}.json?start_date=#{end_date}"
   result = HTTParty.get "https://www.quandl.com/api/v3/datasets/WIKI/#{ticker}.json?start_date=#{end_date}&api_key=#{Rails.application.secrets.quandl_key}"
 
   keys = result['dataset']['column_names'].map{|key| key.downcase}
