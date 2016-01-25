@@ -21,6 +21,7 @@ class KazooController < ApplicationController
     end
     kazoo = Kazoo.create
     kazoo.create_days days
+    kazoo.smas
 
     render_days = kazoo.recent_days(50).sort_by{|day| day.date}.reverse
     smas = render_days.each_with_index.map{|day, index| [index, day.sma]}
