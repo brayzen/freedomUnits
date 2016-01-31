@@ -3,7 +3,7 @@ class Kazoo < ActiveRecord::Base
 
   def create_days(days)
     days.each do |day|
-      self.days.create!(day.extract!('date', 'close'))
+      self.days.create!(day.extract!('date', 'open', 'close'))
     end
   end
 
