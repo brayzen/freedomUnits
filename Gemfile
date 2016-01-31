@@ -15,6 +15,7 @@ gem 'pry'
 gem 'whenever'
 gem 'dotenv-rails', '~> 2.0', '>= 2.0.2'
 gem 'slim'
+gem 'devise'
 
 group :development, :test do
   gem 'byebug'
