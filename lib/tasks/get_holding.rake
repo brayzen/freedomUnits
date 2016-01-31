@@ -12,21 +12,21 @@ task :get_holding, [:ticker, :days_back] => :environment do |t, args|
     day = Hash[keys.zip(day)]
   end
 
-  kazoo = Kazoo.new days
 
   # if kazoo.watchable?
   #   p "KAZOO IS WATCHABLE"
   #   puts 'BOOYA!!! it is worthy'
-    kazoo = Kazoo.find_by ticker_name: ticker
-    kazoo ||= Kazoo.create! ticker_name: ticker
-    # kazoo.watchable = true
-    # data2 = data.to_s
-    kazoo["data"] = data2 || "can't be NIL"
-    kazoo.save
+  kazoo = Kazoo.find_by ticker_name: ticker
+  kazoo ||= Kazoo.create! ticker_name: ticker
+  kazoo = Kazoo.new days
+  # kazoo.watchable = true
+  # data2 = data.to_s
+  kazoo["data"] = data2 || "can't be NIL"
+  kazoo.save
 
-  #   days.each do |day|
-  #     kazoo.days.create!(date: day['Date'], close: day['Close'])
-  #   end
+  days.each do |day|
+    kazoo.days.create!(date: day['Date'], close: day['Close'])
+  end
   #   # Buyable == bought for testing purposes
   #   if Kazoo.buyable?(data)
   #     kazoo.bought = true
@@ -34,6 +34,5 @@ task :get_holding, [:ticker, :days_back] => :environment do |t, args|
   #   end
   # else
   #   puts "not worthy!"
-  end
 end
 

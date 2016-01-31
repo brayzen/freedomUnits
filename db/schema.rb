@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131064438) do
+ActiveRecord::Schema.define(version: 20160131065343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(version: 20160131064438) do
   end
 
   add_index "days", ["kazoo_id"], name: "index_days_on_kazoo_id", using: :btree
+
+  create_table "equity_accounts", force: :cascade do |t|
+    t.float  "total_equity"
+    t.float  "core_equity"
+    t.float  "profit_loss"
+    t.string "risk"
+  end
 
   create_table "holdings", force: :cascade do |t|
     t.float    "buy_next_unit_at"
