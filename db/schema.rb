@@ -42,10 +42,8 @@ ActiveRecord::Schema.define(version: 20160118235533) do
     t.string   "data"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.boolean  "bought"
     t.boolean  "watchable"
     t.boolean  "buyable"
-    t.datetime "when_bought"
   end
 
 end
