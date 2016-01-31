@@ -11,21 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160118235533) do
+ActiveRecord::Schema.define(version: 20160125003658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "commodities", force: :cascade do |t|
-    t.string   "name"
-    t.float    "close"
-    t.float    "sma50"
-    t.float    "sell_point"
-    t.float    "invest_point"
-    t.boolean  "sma_cleared"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
 
   create_table "days", force: :cascade do |t|
     t.datetime "date"
@@ -33,13 +22,13 @@ ActiveRecord::Schema.define(version: 20160118235533) do
     t.integer  "kazoo_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float    "sma"
   end
 
   add_index "days", ["kazoo_id"], name: "index_days_on_kazoo_id", using: :btree
 
   create_table "kazoos", force: :cascade do |t|
     t.string   "ticker_name"
-    t.string   "data"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.boolean  "watchable"

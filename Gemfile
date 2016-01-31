@@ -14,9 +14,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'pry'
 gem 'whenever'
 gem 'dotenv-rails', '~> 2.0', '>= 2.0.2'
+gem 'slim'
 
 group :development, :test do
   gem 'byebug'
+  gem "better_errors"
 end
 
 group :development do
