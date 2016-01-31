@@ -23,7 +23,7 @@ require "active_record"
 require 'date'
 
 
-every :day, :at => '1:59pm' do
+every :day, :at => '8:47pm' do
   # if 1 < Date.today.wday && Date.today.wday < 7
     # ActiveRecord::Base.connection.execute('DELETE * FROM days')
     # search_list = ['amzn', 'aapl', 'msft', 'goog', 'wfc', 'EXPE']
