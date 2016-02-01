@@ -1,5 +1,7 @@
 class Kazoo < ActiveRecord::Base
   has_many :days
+  has_many :holdings
+  has_many :equity_accounts, through :holdings
 
   def create_days(days)
     days.each do |day|

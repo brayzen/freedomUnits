@@ -11,21 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131065343) do
+ActiveRecord::Schema.define(version: 20160201005157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "commodities", force: :cascade do |t|
-    t.string   "name"
-    t.float    "close"
-    t.float    "sma50"
-    t.float    "sell_point"
-    t.float    "invest_point"
-    t.boolean  "sma_cleared"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
 
   create_table "days", force: :cascade do |t|
     t.datetime "date"
@@ -47,20 +36,10 @@ ActiveRecord::Schema.define(version: 20160131065343) do
   end
 
   create_table "holdings", force: :cascade do |t|
-    t.float    "buy_next_unit_at"
-    t.float    "unit_1"
-    t.datetime "unit_1_date"
-    t.float    "unit_2"
-    t.datetime "unit_2_date"
-    t.float    "unit_3"
-    t.datetime "unit_3_date"
-    t.float    "unit_4"
-    t.datetime "unit_4_date"
-    t.float    "unit_5"
-    t.datetime "unit_5_date"
-    t.float    "stop_loss"
-    t.datetime "stop_loss_time"
-    t.float    "atr"
+    t.float   "stop_loss"
+    t.float   "profit_loss"
+    t.integer "units"
+    t.float   "buy_point"
   end
 
   create_table "kazoos", force: :cascade do |t|
@@ -70,6 +49,13 @@ ActiveRecord::Schema.define(version: 20160131065343) do
     t.datetime "updated_at",  null: false
     t.boolean  "watchable"
     t.boolean  "buyable"
+  end
+
+  create_table "trades", force: :cascade do |t|
+    t.boolean "buy"
+    t.float   "price"
+    t.integer "quantity"
+    t.float   "dollars"
   end
 
   create_table "users", force: :cascade do |t|

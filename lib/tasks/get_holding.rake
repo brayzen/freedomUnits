@@ -9,24 +9,27 @@ task :get_holding, [:ticker, :days_back] => :environment do |t, args|
   keys = result['dataset']['column_names'].map{|key| key.downcase}
   data = result['dataset']['data']
   days = data.map do |day|
-    day = Hash[keys.zip(day)]
+    Hash[keys.zip(day)]
   end
-
 
   # if kazoo.watchable?
   #   p "KAZOO IS WATCHABLE"
   #   puts 'BOOYA!!! it is worthy'
   kazoo = Kazoo.find_by ticker_name: ticker
   kazoo ||= Kazoo.create! ticker_name: ticker
-  kazoo = Kazoo.new days
+  kazoo.create_days(days)
   # kazoo.watchable = true
-  # data2 = data.to_s
+  data2 = data.to_s
   kazoo["data"] = data2 || "can't be NIL"
   kazoo.save
 
-  days.each do |day|
-    kazoo.days.create!(date: day['Date'], close: day['Close'])
-  end
+  kazoo.days.each{ |day| puts day.open}
+
+  # days = days.map do |day|
+  #   kazoo.days.create!(kazoo_id: kazoo.id, date: day['date'], open: day['open'], close: day['close'])
+  # end
+
+
   #   # Buyable == bought for testing purposes
   #   if Kazoo.buyable?(data)
   #     kazoo.bought = true
