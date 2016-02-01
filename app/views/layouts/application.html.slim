@@ -6,6 +6,16 @@ html
     = javascript_include_tag 'application'
     = csrf_meta_tags
   body
+    / - if :flash.present?
+    /   - if flash[:warn] || flash[:alert]
+    /     .alert #{flash[:warn]} #{flash[:alert]}
+    /   - if flash[:notice] || flash[:success]
+    /     .alert.alert-success #{flash[:notice]} #{flash[:success]}
+    /   - if flash[:info]
+    /     .alert.alert-info #{flash[:info]}
+    /   - if flash[:error]
+    /     .alert.alert-error #{flash[:error]}
     = render partial: 'static/header'
-    = yield
+    div.container
+        = yield
 

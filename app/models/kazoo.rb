@@ -1,10 +1,16 @@
 class Kazoo < ActiveRecord::Base
   has_many :days
+  has_many :holdings
+  has_many :equity_accounts, through: :holdings
 
   def create_days(days)
-    days.each do |day|
-      self.days.create!(day.extract!('date', 'close'))
+    days.reverse.each do |day|
+      self.days.create!(day.extract!('date', 'open', 'close', 'low', 'high'))
     end
+  end
+
+  def atr(count=15)
+    days[0].update(atr: days[1..count].map{|day| day.high - day.low }.reduce{ |sum, cur| sum + cur } / count)
   end
 
   def smas
