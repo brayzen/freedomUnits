@@ -1,4 +1,4 @@
-# encoding: UTF-8
+ # encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201013048) do
+ActiveRecord::Schema.define(version: 20160201013802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,15 +26,16 @@ ActiveRecord::Schema.define(version: 20160201013048) do
     t.float    "open"
     t.float    "low"
     t.float    "high"
+    t.float    "atr"
   end
 
   add_index "days", ["kazoo_id"], name: "index_days_on_kazoo_id", using: :btree
 
   create_table "equity_accounts", force: :cascade do |t|
-    t.float  "total_equity"
-    t.float  "core_equity"
-    t.float  "profit_loss"
-    t.string "risk"
+    t.float   "total_equity"
+    t.float   "core_equity"
+    t.float   "profit_loss"
+    t.integer "risk"
   end
 
   create_table "holdings", force: :cascade do |t|
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(version: 20160201013048) do
     t.datetime "updated_at",  null: false
     t.boolean  "watchable"
     t.boolean  "buyable"
+    t.string   "type"
   end
 
   create_table "trades", force: :cascade do |t|

@@ -1,6 +1,6 @@
 require 'pry'
 
-task :get_holding, [:ticker, :days_back] => :environment do |t, args|
+task :get_kazoo, [:ticker, :days_back] => :environment do |t, args|
   days_back = args[:days_back] || 150
   ticker = args[:ticker].upcase! || args[:ticker]
   end_date = (Date.today - days_back)
@@ -23,7 +23,7 @@ task :get_holding, [:ticker, :days_back] => :environment do |t, args|
   kazoo["data"] = data2 || "can't be NIL"
   kazoo.save
 
-  kazoo.days.each{ |day| puts day.open}
+  kazoo.days.each{ |day| puts day.low }
 
   # days = days.map do |day|
   #   kazoo.days.create!(kazoo_id: kazoo.id, date: day['date'], open: day['open'], close: day['close'])
