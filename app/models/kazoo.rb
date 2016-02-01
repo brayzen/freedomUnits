@@ -1,11 +1,11 @@
 class Kazoo < ActiveRecord::Base
   has_many :days
   has_many :holdings
-  has_many :equity_accounts, through :holdings
+  has_many :equity_accounts, through: :holdings
 
   def create_days(days)
     days.each do |day|
-      self.days.create!(day.extract!('date', 'open', 'close'))
+      self.days.create!(day.extract!('date', 'open', 'close', 'low', 'high'))
     end
   end
 
