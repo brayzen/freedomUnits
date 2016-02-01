@@ -23,7 +23,8 @@ task :get_kazoo, [:ticker, :days_back] => :environment do |t, args|
   kazoo["data"] = data2 || "can't be NIL"
   kazoo.save
 
-  kazoo.days.each{ |day| puts day.low }
+  kazoo.atr
+  # kazoo.days.each{ |day| puts day.low }
 
   # days = days.map do |day|
   #   kazoo.days.create!(kazoo_id: kazoo.id, date: day['date'], open: day['open'], close: day['close'])
