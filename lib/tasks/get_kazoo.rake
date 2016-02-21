@@ -1,8 +1,21 @@
 require 'pry'
 
 task :get_kazoo, [:ticker, :days_back] => :environment do |t, args|
-  days_back = args[:days_back] || 150
+  days_back_default = 150
+
   ticker = args[:ticker].upcase! || args[:ticker]
+  kazoo = Kazoo.find_by ticker_name: ticker
+
+  days_back = args[:days_back].to_i
+  if days_back.blank?
+    if kazoo.present?
+      days_back = (Date.today - kazoo.latest_day.date.to_date).to_i
+      days_back = [days_back, days_back_default].min
+    else
+      days_back = days_back_default
+    end
+  end
+
   end_date = (Date.today - days_back)
   result = HTTParty.get "https://www.quandl.com/api/v3/datasets/WIKI/#{ticker}.json?start_date=#{end_date}&api_key=#{Rails.application.secrets.quandl_key}"
 
@@ -15,7 +28,7 @@ task :get_kazoo, [:ticker, :days_back] => :environment do |t, args|
   # if kazoo.watchable?
   #   p "KAZOO IS WATCHABLE"
   #   puts 'BOOYA!!! it is worthy'
-  kazoo = Kazoo.find_by ticker_name: ticker
+  kazoo ||= Kazoo.find_by ticker_name: ticker
   kazoo ||= Kazoo.create! ticker_name: ticker
   kazoo.create_days(days)
   # kazoo.watchable = true

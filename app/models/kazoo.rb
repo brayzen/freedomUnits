@@ -39,4 +39,8 @@ class Kazoo < ActiveRecord::Base
     days_between(DateTime.now - count, DateTime.now)
   end
 
+  def latest_day
+    days.last
+  end
+
 end
